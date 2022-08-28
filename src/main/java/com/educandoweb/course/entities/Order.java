@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.educandoweb.course.entities.Enum.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -30,14 +31,17 @@ public class Order implements Serializable{
 	@JoinColumn(name = "client_id")
 	private Person client;
 	
+	private Integer orderStatus;
+	
 	public Order() {
 	}
 
-	public Order(Long id, Instant moment, Person client) {
+	public Order(Long id, Instant moment, Person client, OrderStatus orderStatus) {
 		super();
 		this.id = id;
 		this.moment = moment;
 		this.client = client;
+		setOrderStatus(orderStatus);
 	}
 
 	public Long getId() {
@@ -62,6 +66,14 @@ public class Order implements Serializable{
 
 	public void setClient(Person client) {
 		this.client = client;
+	}
+	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus.getCode();
 	}
 
 	@Override
