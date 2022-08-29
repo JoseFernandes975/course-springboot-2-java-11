@@ -9,9 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.educandoweb.course.entities.Category;
 import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.entities.Person;
 import com.educandoweb.course.entities.Enum.OrderStatus;
+import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepository;
 
@@ -24,10 +26,20 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	@GetMapping
 	public void run(String... args) throws Exception {
+		 
+		Category cat1 = new Category(null, "Electronics"); 
+		Category cat2 = new Category(null, "Books"); 
+		Category cat3 = new Category(null, "Computers"); 
+		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		Person u1 = new Person(null, "Maria Brown","maria@gmail.com","9888888","12345");
 		Person u2 = new Person(null, "Alex Green","alex@gmail.com","9777777","123456");
 		
